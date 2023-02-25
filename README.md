@@ -1,25 +1,25 @@
 # Mastodon API
-[![Build Status](https://travis-ci.org/vanita5/mastodon-api.svg)](https://travis-ci.org/vanita5/mastodon-api) [![NPM Downloads](https://img.shields.io/npm/dt/mastodon-api.svg)](https://www.npmjs.com/package/mastodon-api) [![NPM Version](https://img.shields.io/npm/v/mastodon-api.svg)](https://www.npmjs.com/package/mastodon-api) [![code style](https://img.shields.io/badge/code%20style-airbnb-ff69b4.svg)](https://github.com/airbnb/javascript)
+[![NPM Downloads](https://img.shields.io/npm/dt/mastodon-api-v1.svg)](https://www.npmjs.com/package/mastodon-api-v1) [![NPM Version](https://img.shields.io/npm/v/mastodon-api-v1.svg)](https://www.npmjs.com/package/mastodon-api-v1) [![code style](https://img.shields.io/badge/code%20style-airbnb-ff69b4.svg)](https://github.com/airbnb/javascript)
 
 [Mastodon](https://github.com/tootsuite/mastodon/) API Client for node
 
 # Installing
 
 ```bash
-yarn add mastodon-api
+yarn add mastodon-api-v1
 ```
 
 OR
 
 ```bash
-npm install --save mastodon-api
+npm install --save mastodon-api-v1
 ```
 
 # Usage:
 
 ## Authorization
 
-For getting an access token, please take a look into [examples/authorization.js](https://github.com/vanita5/mastodon-api/blob/master/examples/authorization.js).
+For getting an access token, please take a look into [examples/authorization.js](https://github.com/mystery-man/mastodon-api-v1/blob/master/examples/authorization.js).
 
 For more information, please take a look on the wiki [here](https://github.com/jessicahayley/node-mastodon/wiki/Getting-an-access_token-with-the-oauth-package)
 and [here](https://github.com/tootsuite/mastodon/blob/master/docs/Using-the-API/API.md#apps).
@@ -102,12 +102,12 @@ Optional. Defaults to `urn:ietf:wg:oauth:2.0:oob`.
 
 
 ```javascript
-import Mastodon from 'mastodon-api'
+import Mastodon from 'mastodon-api-v1'
 
 const M = new Mastodon({
   access_token: '...',
   timeout_ms: 60*1000,  // optional HTTP request timeout to apply to all requests.
-  api_url: 'https://gay.crime.team/api/v1/', // optional, defaults to https://mastodon.social/api/v1/
+  api_url: 'https://mastodon.social/api', // optional, defaults to https://mastodon.social/api/
 })
 ```
 
@@ -123,7 +123,79 @@ If authenticating with user context, `config` should be an object of the form:
   access_token: '...'
 }
 ```
+# **APIs**
 
+## **Accounts**:
+### Get Current Account:
+`await M.apis.account.verifyAccountCredentials()`
+
+### Follow Account:
+`await M.apis.account.follow(accountId)`
+
+**Parameters**
+- **accountId** > String: AccountId to follow account
+
+### Unfollow Account:
+`await M.apis.account.unfollow(accountId)`
+
+**Parameters**
+- **accountId** > String: AccountId to unfollow account
+### Get Account by Id:
+`await M.apis.account.get(accountId)`
+
+**Parameters**
+- **accountId** > String: AccountId to get the details of
+### Get Account followers:
+`await M.apis.account.followers(accountId, limit, nextId)`
+
+**Parameters**
+- **accountId** > String: AccountId to get the followers of
+- **limit** > Number: Limit to get the followers. Max value is 80. Default is 10
+- **nextId** > String: Followers to get after the current list.
+
+### Get Account followings:
+`await M.apis.account.followings(accountId, limit, nextId)`
+**Parameters**
+- **accountId** > String: AccountId to get the followers of
+- **limit** > Number: Limit to get the followers. Max value is 80. Default is 10
+- **nextId** > String: Followers to get after the current list.
+
+### Search Accounts:
+`await M.apis.account.search(query, start, limit, exactMatch, rawData)`
+
+**Parameters**
+
+- **query** > String: Search query e.g "Social"
+- **start** > Number: Starting index of the results
+- **limit** > Number: No of results to fetch
+- **exactMatch** > Boolean: Should return exact match.
+- **rawData** > Boolean: Return formatted or raw data. 
+
+## Media
+
+### Upload Media:
+`await M.apis.media.upload(file, thumbnail)`
+### Get Media:
+`await M.apis.media.get(mediaId)`
+### Update Media:
+`await M.apis.media.upload(mediaId, thumbnail)`
+## Status
+
+### Post Status:
+`await M.apis.status.create(message, mediaIds, inReplyToId)`
+### Get Status:
+`await M.apis.status.get(statusId)`
+### Delete Status:
+`await M.apis.status.remove(statusId)`
+### Mark Favourite Status:
+`await M.apis.status.markFavourite(statusId)`
+### Unmark Favourite Status:
+`await M.apis.status.unmarkFavourite(statusId)`
+### Share Status:
+`await M.apis.status.share(statusId)`
+### Update Status:
+`await M.apis.status.update(statusId, message, mediaIds)`
+# Customizable APIs:
 ## `M.get(path, [params], callback)`
 GET any of the REST API endpoints.
 
@@ -211,7 +283,7 @@ Thanks for your awesome work <3
 ```
 (The MIT License)
 
-Copyright (c) 2017 vanita5 <mail@vanit.as>
+Copyright (c) 2023 mystery-man
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

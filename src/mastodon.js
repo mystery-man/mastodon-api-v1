@@ -4,6 +4,7 @@ import { OAuth2 } from 'oauth'
 import Request from 'request'
 
 import Helpers from './helpers'
+import Apis from './apis'
 import StreamingAPIConnection from './streaming-api-connection'
 
 import {
@@ -11,17 +12,20 @@ import {
     DEFAULT_REST_ROOT,
     DEFAULT_REST_BASE,
     REQUIRED_KEYS_FOR_AUTH,
-    DEFAULT_OAUTH_APPS_ENDPOINT
+    DEFAULT_OAUTH_APPS_ENDPOINT,
+    DEFAULT_REST_ROOT_V2
 } from './settings'
 
 class Mastodon {
     constructor(config) {
-        this.apiUrl = config.api_url || DEFAULT_REST_ROOT
+        this.apiUrl = config.api_url ? `${config.api_url}/v1` : DEFAULT_REST_ROOT
+        this.apiUrlV2 = config.api_url_V2 ? `${config.api_url}/v2` : DEFAULT_REST_ROOT_V2
 
         Mastodon._validateConfigOrThrow(config)
 
         this.config = config
         this._mastodon_time_minus_local_time_ms = 0
+        this.apis = new Apis(this)
     }
 
     get(path, params, callback) {

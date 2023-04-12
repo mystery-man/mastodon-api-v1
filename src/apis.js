@@ -225,7 +225,7 @@ class MediaAPI {
         this.apiUrl = `${mastodon.apiUrlV2}/media`
     }
 
-    upload(file, thumbnail) {
+    upload(file, thumbnail, description, focus) {
         if(!file){
             return Promise.reject("Media file is required")
         }
@@ -233,8 +233,17 @@ class MediaAPI {
         const data = {
             file
         }
+
         if(thumbnail){
             data.thumbnail = thumbnail
+        }
+
+        if(description){
+            data.descripttion = description
+        }
+        
+        if(focus){
+            data.focus = focus
         }
         
         return this.mastodon.post(`${this.apiUrl}`, data)

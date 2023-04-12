@@ -115,7 +115,7 @@ M.apis.account.search("Social", 0, 10, false, false).then((resp) => console.log(
 
 // Media Apis
 
-M.apis.media.upload(request.get(url)).then((data) => console.log(data))
+M.apis.media.upload(request.get(url), null/* Thumbnail */, "Wolf Image" /* Description */, null /* Focus point of Thumbnail */).then((data) => console.log(data))
 
 /* 
  -- Response:

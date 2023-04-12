@@ -174,7 +174,7 @@ If authenticating with user context, `config` should be an object of the form:
 ## Media
 
 ### Upload Media:
-`await M.apis.media.upload(file, thumbnail)`
+`await M.apis.media.upload(file, thumbnail, description, focus)`
 ### Get Media:
 `await M.apis.media.get(mediaId)`
 ### Update Media:

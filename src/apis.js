@@ -149,7 +149,7 @@ class StatusAPI {
 
     create(message, mediaIds, inReplyToId) {
         if(!message && (!mediaIds || mediaIds.length === 0)){
-            return Promise.reject("Either message or media is required");
+            return Promise.reject("Either message or media is required")
         }
         
         const data = {}
@@ -241,7 +241,7 @@ class MediaAPI {
         if(description){
             data.descripttion = description
         }
-        
+
         if(focus){
             data.focus = focus
         }

@@ -19,7 +19,7 @@ import {
 class Mastodon {
     constructor(config) {
         this.apiUrl = config.api_url ? `${config.api_url}/v1` : DEFAULT_REST_ROOT
-        this.apiUrlV2 = config.api_url_V2 ? `${config.api_url}/v2` : DEFAULT_REST_ROOT_V2
+        this.apiUrlV2 = config.api_url ? `${config.api_url}/v2` : DEFAULT_REST_ROOT_V2
 
         Mastodon._validateConfigOrThrow(config)
 

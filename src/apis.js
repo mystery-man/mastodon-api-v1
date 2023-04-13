@@ -239,7 +239,7 @@ class MediaAPI {
         }
 
         if(description){
-            data.descripttion = description
+            data.description = description
         }
 
         if(focus){

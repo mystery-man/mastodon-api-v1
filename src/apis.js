@@ -222,7 +222,8 @@ class StatusAPI {
 class MediaAPI {
     constructor(mastodon) {
         this.mastodon = mastodon
-        this.apiUrl = `${mastodon.apiUrlV2}/media`
+        this.apiUrl = `${mastodon.apiUrl}/media`
+        this.apiUrl2 = `${mastodon.apiUrlV2}/media`
     }
 
     upload(file, thumbnail, description, focus) {
@@ -247,6 +248,30 @@ class MediaAPI {
         }
         
         return this.mastodon.post(`${this.apiUrl}`, data)
+    }
+
+    uploadV2(file, thumbnail, description, focus) {
+        if(!file){
+            return Promise.reject("Media file is required")
+        }
+        
+        const data = {
+            file
+        }
+
+        if(thumbnail){
+            data.thumbnail = thumbnail
+        }
+
+        if(description){
+            data.description = description
+        }
+
+        if(focus){
+            data.focus = focus
+        }
+        
+        return this.mastodon.post(`${this.apiUrl2}`, data)
     }
 
     get(mediaId) {
